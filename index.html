@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yumzy - Food Delivery</title>
+
+<link rel="stylesheet" href="style.css"> <!-- ✅ FIXED PATH -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h1 class="logo">Yumzy 🍔</h1>
+  <ul>
+    <li onclick="showSection('home'); setActiveTab(this)">Home</li>
+    <li onclick="showSection('menu'); setActiveTab(this)">Menu</li>
+    <li onclick="showSection('login'); setActiveTab(this)" id="loginTab">Login</li>
+    <li onclick="showSection('cart'); setActiveTab(this)">Cart 🛒 <span id="cartBadge" class="cart-badge"></span></li>
+    <li onclick="toggleTheme()">🌙</li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="section active">
+  <div class="hero">
+    <div id="particles-js"></div>
+    <h2>Delicious Food, Delivered Fast 🚀</h2>
+    <p>Order from your favorite restaurants</p>
+    <button onclick="showSection('menu')">Order Now</button>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="section">
+  <h2>Menu</h2>
+  <div class="filters">
+    <button onclick="filterFood('all')">All</button>
+    <button onclick="filterFood('fast')">Fast Food</button>
+    <button onclick="filterFood('indian')">Indian</button>
+    <button onclick="filterFood('drink')">Drinks</button>
+    <button onclick="filterFood('dessert')">Dessert</button>
+  </div>
+
+  <input type="text" id="search" placeholder="Search food..." onkeyup="searchFood()">
+
+  <div class="food-container">
+    <!-- (ALL YOUR FOOD CARDS — UNCHANGED) -->
+    <!-- FAST FOOD -->
+    <div class="card fast">
+      <span class="badge">Best Seller</span>
+      <img src="https://hips.hearstapps.com/hmg-prod/images/classic-cheese-pizza-recipe-2-64429a0cb408b.jpg" loading="lazy">
+      <h3>Pizza</h3><p class="rating">⭐ 4.5</p>
+      <p class="discount">20% OFF</p><p>₹250</p>
+      <button onclick="addToCart('Pizza',250)">Add to Cart</button>
+    </div>
+
+    <div class="card fast">
+      <span class="badge">Hot</span>
+      <img src="https://blog.swiggy.com/wp-content/uploads/2025/01/Image-9_-meat-burger-1024x538.png" loading="lazy">
+      <h3>Burger</h3><p class="rating">⭐ 4.3</p>
+      <p class="discount">15% OFF</p><p>₹150</p>
+      <button onclick="addToCart('Burger',150)">Add to Cart</button>
+    </div>
+
+    <div class="card fast">
+      <img src="https://www.sharmispassions.com/wp-content/uploads/2020/03/WhiteSaucePasta6.jpg" loading="lazy">
+      <h3>Pasta</h3><p class="rating">⭐ 4.2</p><p>₹200</p>
+      <button onclick="addToCart('Pasta',200)">Add to Cart</button>
+    </div>
+
+    <div class="card fast">
+      <img src="https://www.awesomecuisine.com/wp-content/uploads/2009/05/french-fries.jpg" loading="lazy">
+      <h3>Fries</h3><p class="rating">⭐ 4.1</p><p>₹90</p>
+      <button onclick="addToCart('Fries',90)">Add to Cart</button>
+    </div>
+
+    <div class="card fast">
+      <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?w=400" loading="lazy">
+      <h3>Sandwich</h3><p class="rating">⭐ 4.0</p><p>₹100</p>
+      <button onclick="addToCart('Sandwich',100)">Add to Cart</button>
+    </div>
+
+    <div class="card fast">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmpvuxYgya9VbwvSbWVfTA-pgb9LLE3gBsnA&s" loading="lazy">
+      <h3>Wrap</h3><p class="rating">⭐ 4.2</p><p>₹130</p>
+      <button onclick="addToCart('Wrap',130)">Add to Cart</button>
+    </div>
+
+    <!-- INDIAN -->
+    <div class="card indian">
+      <img src="https://www.cookingcarnival.com/wp-content/uploads/2025/09/Vegetable-Dum-Biryani-5.jpg" loading="lazy">
+      <h3>Biryani</h3><p class="rating">⭐ 4.6</p><p>₹220</p>
+      <button onclick="addToCart('Biryani',220)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://www.shutterstock.com/image-photo/side-view-isometric-angle-crispy-600nw-2600398075.jpg" loading="lazy">
+      <h3>Dosa</h3><p class="rating">⭐ 4.4</p><p>₹120</p>
+      <button onclick="addToCart('Dosa',120)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://cookwithrenu.com/wp-content/uploads/2025/06/Soft-South-Indian-Idli_Featured-Image.jpg" loading="lazy">
+      <h3>Idli</h3><p class="rating">⭐ 4.2</p><p>₹80</p>
+      <button onclick="addToCart('Idli',80)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://www.eitanbernath.com/wp-content/uploads/2020/05/Butter-Paneer-1-4x5-LOW-RES.jpeg" loading="lazy">
+      <h3>Paneer</h3><p class="rating">⭐ 4.5</p><p>₹220</p>
+      <button onclick="addToCart('Paneer',220)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_960,w_960//InstamartAssets/chole.webp" loading="lazy">
+      <h3>Chole</h3><p class="rating">⭐ 4.3</p><p>₹150</p>
+      <button onclick="addToCart('Chole',150)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://globalkitchentravels.com/wp-content/uploads/2014/06/Kulcha-LR.jpg" loading="lazy">
+      <h3>Kulcha</h3><p class="rating">⭐ 4.1</p><p>₹30</p>
+      <button onclick="addToCart('Kulcha',30)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/2020-05-08_19_34_28_Chapati_being_made_in_a_pan_in_the_Franklin_Farm_section_of_Oak_Hill%2C_Fairfax_County%2C_Virginia.jpg/250px-2020-05-08_19_34_28_Chapati_being_made_in_a_pan_in_the_Franklin_Farm_section_of_Oak_Hill%2C_Fairfax_County%2C_Virginia.jpg" loading="lazy">
+      <h3>Roti</h3><p class="rating">⭐ 4.0</p><p>₹20</p>
+      <button onclick="addToCart('Roti',20)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8nu0lZ6XG71FYuz_ZrmLHtvgX1CssWHTwmA&s" loading="lazy">
+      <h3>Dal</h3><p class="rating">⭐ 4.1</p><p>₹150</p>
+      <button onclick="addToCart('Dal',150)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2023/07/basmati-rice-recipe.jpg" loading="lazy">
+      <h3>Rice</h3><p class="rating">⭐ 4.1</p><p>₹100</p>
+      <button onclick="addToCart('Rice',100)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://vegehomecooking.com/wp-content/uploads/2021/09/PapdichaatFeaturedImage.jpg" loading="lazy">
+      <h3>Chaat</h3><p class="rating">⭐ 4.3</p><p>₹70</p>
+      <button onclick="addToCart('Chaat',70)">Add to Cart</button>
+    </div>
+
+    <div class="card indian">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxMDZ89fmuKlbqzOdXvFvhLA89V4J_klI3Q&s" loading="lazy">
+      <h3>Pani Puri</h3><p class="rating">⭐ 4.4</p><p>₹60</p>
+      <button onclick="addToCart('Pani Puri',60)">Add to Cart</button>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="card drink">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" loading="lazy">
+      <h3>Coffee</h3><p class="rating">⭐ 4.5</p><p>₹60</p>
+      <button onclick="addToCart('Coffee',60)">Add to Cart</button>
+    </div>
+
+    <div class="card drink">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/02/Painkiller-Cocktail-008-735x919.jpg" loading="lazy">
+      <h3>Juice</h3><p class="rating">⭐ 4.0</p><p>₹70</p>
+      <button onclick="addToCart('Juice',70)">Add to Cart</button>
+    </div>
+
+    <div class="card drink">
+      <img src="https://www.teaforturmeric.com/wp-content/uploads/2021/11/Masala-Chai-Tea-Recipe-Card.jpg" loading="lazy">
+      <h3>Tea</h3><p class="rating">⭐ 4.0</p><p>₹20</p>
+      <button onclick="addToCart('Tea',20)">Add to Cart</button>
+    </div>
+
+    <div class="card drink">
+      <img src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=1080/da/cms-assets/cms/product/3af56c86-9a93-4d0c-a8d5-cf38493e4120.png" loading="lazy">
+      <h3>Curd</h3><p class="rating">⭐ 4.1</p><p>₹30</p>
+      <button onclick="addToCart('Curd',30)">Add to Cart</button>
+    </div>
+
+    <!-- DESSERT -->
+    <div class="card dessert">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" loading="lazy">
+      <h3>Cake</h3><p class="rating">⭐ 4.7</p><p>₹180</p>
+      <button onclick="addToCart('Cake',180)">Add to Cart</button>
+    </div>
+
+    <div class="card dessert">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Green_and_Black%27s_dark_chocolate_bar_2.jpg/330px-Green_and_Black%27s_dark_chocolate_bar_2.jpg" loading="lazy">
+      <h3>Chocolate</h3><p class="rating">⭐ 4.8</p><p>₹60</p>
+      <button onclick="addToCart('Chocolate',60)">Add to Cart</button>
+    </div>
+
+    <div class="card dessert">
+      <img src="https://eatsbyramya.com/wp-content/uploads/2024/10/rasmalai_can_recipe.jpg" loading="lazy">
+      <h3>Rasmalai</h3><p class="rating">⭐ 4.8</p><p>₹100</p>
+      <button onclick="addToCart('Rasmalai',100)">Add to Cart</button>
+    </div>
+
+    <div class="card dessert">
+      <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400" loading="lazy">
+      <h3>Brownie</h3><p class="rating">⭐ 4.6</p><p>₹150</p>
+      <button onclick="addToCart('Brownie',150)">Add to Cart</button>
+    </div>
+
+    <div class="card dessert">
+      <img src="https://static.toiimg.com/thumb/63799510.cms?imgsize=1091643&width=800&height=800" loading="lazy">
+      <h3>Gulab Jamun</h3><p class="rating">⭐ 4.8</p><p>₹90</p>
+      <button onclick="addToCart('Gulab Jamun',90)">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section id="login" class="section">
+  <div class="form-box">
+    <h2 id="formTitle">Login / Register</h2>
+
+    <p id="loggedInAs" style="display:none; color:#7cff7c; margin-bottom:10px;"></p>
+
+    <div id="formFields">
+      <!-- ✅ Only label changed (NOT functionality) -->
+      <input type="text" id="username" placeholder="Enter your email">
+      <input type="password" id="password" placeholder="Password">
+      <input type="password" id="confirm-password" placeholder="Confirm Password (Register only)">
+
+      <div class="form-actions">
+        <!-- ✅ Ensure functions exist -->
+        <button onclick="loginUser()">Login</button>
+        <button onclick="registerUser()">Register</button>
+      </div>
+    </div>
+
+    <div id="logoutBox" style="display:none; text-align:center; margin-top:15px;">
+      <button onclick="logoutUser()" style="background:linear-gradient(135deg,#555,#333)">Logout</button>
+    </div>
+
+    <p id="account-message" class="account-message"></p>
+  </div>
+</section>
+
+<!-- CART -->
+<section id="cart" class="section">
+  <h2>Your Cart 🛒</h2>
+  <input type="text" id="location" placeholder="Enter delivery address">
+  <ul id="cart-items"></ul>
+  <h3 id="total">Total: ₹0</h3>
+
+  <div style="text-align:center; margin-top:15px;">
+    <button onclick="goToPayment()">Proceed to Payment 💳</button>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section id="payment" class="section">
+  <h2>Payment 💳</h2>
+  <div class="payment-box">
+    <button class="pay-btn" onclick="payNow('UPI')">📱 UPI</button>
+    <button class="pay-btn" onclick="payNow('Card')">💳 Card</button>
+    <button class="pay-btn" onclick="payNow('COD')">💵 Cash on Delivery</button>
+  </div>
+  <h3 id="payment-status"></h3>
+</section>
+
+<!-- TRACKING -->
+<section id="tracking" class="section">
+  <h2>Live Tracking 📍</h2>
+
+  <p id="userDisplay" style="text-align:center; font-size:16px; margin-bottom:10px;"></p>
+
+  <div id="map"></div>
+
+  <p id="eta" style="text-align:center; margin:10px 0; font-size:18px; color:orange;">
+    Estimated Delivery: 60 sec
+  </p>
+
+  <p id="status" style="text-align:center; font-size:20px; font-weight:bold;"></p>
+
+  <div class="progress-bar"><div id="progress"></div></div>
+
+  <div style="text-align:center; margin-top:30px;">
+    <h3>Rate Your Delivery ⭐</h3>
+
+    <select id="rating" style="width:auto; display:inline-block; margin:10px;">
+      <option>⭐ 1</option>
+      <option>⭐ 2</option>
+      <option>⭐ 3</option>
+      <option selected>⭐ 4</option>
+      <option>⭐ 5</option>
+    </select>
+
+    <textarea id="feedback" placeholder="Write your feedback..."></textarea>
+
+    <button onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+</section>
+
+<!-- FLOATING ELEMENTS -->
+<div id="floating-cart" onclick="showSection('cart'); setActiveTab(document.querySelector('.navbar li:nth-child(4)'))">🛒</div>
+<div id="topBtn" onclick="scrollToTop()">⬆️</div>
+<div id="notify"></div>
+<div id="loader"></div>
+<div id="toast">✅ Added to Cart!</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<!-- ✅ IMPORTANT FIX -->
+<script src="script.js"></script>
+
+</body>
+</html>
