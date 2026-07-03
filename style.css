@@ -1,4 +1,4 @@
-/* ── RESET & BASE ──────────────────────────────────────── */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -540,7 +540,7 @@ button:hover {
 #topBtn.show { display: flex; }
 #topBtn:hover { background: rgba(255,255,255,0.2); }
 
-/* ── DARK THEME ────────────────────────────────────────── */
+
 body.dark { background: linear-gradient(135deg, #0a0a0a, #181818); }
 body.dark .navbar { background: rgba(0,0,0,0.9); }
 body.dark .card { background: rgba(255,255,255,0.04); }
