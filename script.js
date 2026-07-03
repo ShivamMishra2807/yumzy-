@@ -24,7 +24,7 @@ function showAccountMessage(msg, success = true) {
     el.style.color = success ? '#7cff7c' : '#ff7c7c';
 }
 
-// ─── REGISTER (localStorage - no server needed) ───────────
+// ─── REGISTER  ───────────
 function registerUser() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
@@ -53,7 +53,7 @@ function registerUser() {
     setTimeout(() => showSection('menu'), 1200);
 }
 
-// ─── LOGIN (localStorage - no server needed) ──────────────
+// ─── LOGIN  ──────────────
 function loginUser() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
